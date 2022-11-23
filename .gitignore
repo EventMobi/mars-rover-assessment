@@ -1,0 +1,9 @@
+# Virtual Environment
+venv
+
+# Jetbrains
+.idea
+
+# Python cache files
+*.pyc
+.pytest_cache
