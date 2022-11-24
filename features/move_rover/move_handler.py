@@ -1,6 +1,5 @@
-from typing import List,Tuple
+from typing import Tuple
 
-from features.move_rover.move_response import MoveResponse
 from lib.constant import DIRECTION_MAPPER
 
 
@@ -12,10 +11,9 @@ class MoveHandler:
         self.max_x_point = 0
         self.max_y_point = 0
         self.rover_position = {}
-        self.response = MoveResponse()
         self.__mapper = DIRECTION_MAPPER
 
-    def process_request(self, inp):
+    def process_request(self, inp) -> dict:
         try:
             with open(inp, "r+") as f:
                 lines = f.readlines()
@@ -26,10 +24,11 @@ class MoveHandler:
                     self.__get_instruction(lines[i].strip())
                 else:
                     self.__get_initial_landing_point(lines[i])
-            self.response.build_success_response(self.rover_position)
+            return {"code": 200, "data": self.rover_position}
         except FileNotFoundError as e:
-            return e
-    def __move_forward(self, direction: str):
+            return {"code": 500, "data": str(e)}
+
+    def __move_forward(self, direction: str) -> None:
         if direction == "N" or direction == "E":
             self.__increase_point(direction)
         elif direction == "S" or direction == "W":

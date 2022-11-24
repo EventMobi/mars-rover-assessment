@@ -11,4 +11,12 @@ class MoveRequest:
     def __validate(self, inp):
         if inp is None or len(inp) < 2:
             self.__response.build_failed_response("Invalid input")
-        self.__handler.process_request(inp[1])
+        else:
+            result = self.__handler.process_request(inp[1])
+
+            if result["code"] == 200:
+                self.__response.build_success_response(result["data"])
+            else:
+                self.__response.build_failed_response(result["data"])
+
+        return

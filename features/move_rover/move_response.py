@@ -5,4 +5,4 @@ class MoveResponse:
             print(response)
 
     def build_failed_response(self, message: str):
-        raise ValueError(message)
+        print(message)

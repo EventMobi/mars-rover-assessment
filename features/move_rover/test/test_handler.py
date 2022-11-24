@@ -8,12 +8,12 @@ class TestMoveHandler:
         handler = MoveHandler()
         result = handler.process_request("input.txt")
 
-        assert len(handler.rover_position) == 2
-        assert result is None
+        assert len(result["data"]) == 2
+        assert result["code"] == 200
 
     def test_failed_process_request(self):
         handler = MoveHandler()
         result = handler.process_request("test.txt")
 
-        assert result is not None
+        assert result["code"] == 500
 
