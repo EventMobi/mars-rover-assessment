@@ -16,17 +16,19 @@ class MoveHandler:
         self.__mapper = DIRECTION_MAPPER
 
     def process_request(self, inp):
-        with open(inp, "r+") as f:
-            lines = f.readlines()
-        self.max_x_point, self.max_y_point = self.__get_plateau(lines[0].strip())
+        try:
+            with open(inp, "r+") as f:
+                lines = f.readlines()
+            self.max_x_point, self.max_y_point = self.__get_plateau(lines[0].strip())
 
-        for i in range(1, len(lines)):
-            if i % 2 == 0:
-                self.__get_instruction(lines[i].strip())
-            else:
-                self.__get_initial_landing_point(lines[i])
-        self.response.build_success_response(self.rover_position)
-
+            for i in range(1, len(lines)):
+                if i % 2 == 0:
+                    self.__get_instruction(lines[i].strip())
+                else:
+                    self.__get_initial_landing_point(lines[i])
+            self.response.build_success_response(self.rover_position)
+        except FileNotFoundError as e:
+            return e
     def __move_forward(self, direction: str):
         if direction == "N" or direction == "E":
             self.__increase_point(direction)

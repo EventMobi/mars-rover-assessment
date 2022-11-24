@@ -9,6 +9,6 @@ class MoveRequest:
         self.__validate(inp)
 
     def __validate(self, inp):
-        if len(inp) < 2:
+        if inp is None or len(inp) < 2:
             self.__response.build_failed_response("Invalid input")
         self.__handler.process_request(inp[1])

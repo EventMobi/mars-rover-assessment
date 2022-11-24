@@ -1,5 +1,5 @@
 class MoveResponse:
-    def build_success_response(self,data: dict):
+    def build_success_response(self, data: dict):
         for k, v in data.items():
             response = "{}:{}".format(k, " ".join(v))
             print(response)
